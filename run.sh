@@ -77,8 +77,17 @@ main() {
     fail "Token not specified; please add a token parameter to the step";
   fi
 
+  if [ -z "$target_commitish" ]; then
+    target_commitish="$WERCKER_GIT_COMMIT";
+    info "no target commitsh was supplied; using commit hash of the build: $target_commitish";
+  fi
+
   if [ -z "$tag_name" ]; then
-    fail "Tag name not specified; please add a tag_name parameter to the step";
+    tag_name=$(git describe --tags --exact "$target_commitish")
+    if [ -z "$tag_name" ]; then
+      info "Tag name not specified nor $target_commitish tagged; please add a tag_name parameter to the step or tag this commit";
+      return
+    fi
   fi
 
   if [ -n "$draft" ]; then
@@ -102,11 +111,6 @@ main() {
   if [ -z "$repo" ]; then
     repo="$WERCKER_GIT_REPOSITORY";
     info "no GitHub repository was supplied; using GitHub repository of build: $repo";
-  fi
-
-  if [ -z "$target_commitish" ]; then
-    target_commitish="$WERCKER_GIT_COMMIT";
-    info "no target commitsh was supplied; using commit hash of the build: $target_commitish";
   fi
 
   if [ -z "$export_id" ]; then
