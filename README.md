@@ -61,7 +61,7 @@ To be able to use this step, you will first need to create a GitHub token with a
 # Options
 
 - `token` The token used to make the requests to GitHub. See [Creating a GitHub token](#creating-a-github-token).
-- `tag` The tag name of the release. This needs to be unique for this repository. Semver versioning is recommended, but not required. (make sure this is json encoded, see [TODO](#todo))
+- `tag` (optional) The tag name of the release. This needs to be unique for this repository. Semver versioning is recommended, but not required. If this variable is not set, existing tag pointing `target-commitish` is used. When no tag is found, release is not created. (make sure this is json encoded, see [TODO](#todo))
 - `owner` (optional) The GitHub owner of the repository. Defaults to `$WERCKER_GIT_OWNER`, which is the GitHub owner of the original build.
 - `repo` (optional) The name of the GitHub repository. Defaults to `$WERCKER_GIT_REPOSITORY`, which is the repository of the original build.
 - `target-commitish` (optional) Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Defaults to `$WERCKER_GIT_COMMIT`, which is the commit of the original build.
