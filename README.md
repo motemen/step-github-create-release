@@ -70,6 +70,7 @@ To be able to use this step, you will first need to create a GitHub token with a
 - `draft` (optional) Create a unpublished release if this is `true`, or create a published release if this is `false`. Defaults to empty, which means the default of GitHub will be used (currently this is `false`).
 - `prerelease` (optional) Create a pre-release release if this is `true`, or create a normal release if this is `false`. Defaults to empty, which means the default of GitHub will be used (currently this is `false`).
 - `export-id` (optional) After the release is created, a release id will be made available in the environment variable identifier in this environment variable. Defaults to `WERCKER_GITHUB_CREATE_RELEASE_ID`.
+- `tag-pattern` (optional) Pattern used to determine tag, when `tag` option is not set. See git-describe.
 
 # TODO
 
