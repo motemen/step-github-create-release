@@ -83,7 +83,7 @@ main() {
   fi
 
   if [ -z "$tag_name" ]; then
-    tag_name=$(git describe --tags --exact "$target_commitish")
+    tag_name=$(git describe --tags --exact "$target_commitish" || true)
     if [ -z "$tag_name" ]; then
       info "Tag name not specified nor $target_commitish tagged; please add a tag parameter to the step or tag this commit";
       return
