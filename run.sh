@@ -71,6 +71,7 @@ main() {
   local draft="$WERCKER_GITHUB_CREATE_RELEASE_DRAFT";
   local prerelease="$WERCKER_GITHUB_CREATE_RELEASE_PRERELEASE";
   local export_id="$WERCKER_GITHUB_CREATE_RELEASE_EXPORT_ID";
+  local tag_pattern="$WERCKER_GITHUB_CREATE_RELEASE_TAG_PATTERN"
 
   # Validate variables
   if [ -z "$token" ]; then
@@ -83,7 +84,11 @@ main() {
   fi
 
   if [ -z "$tag_name" ]; then
-    tag_name=$(git describe --tags --exact "$target_commitish" || true)
+    local match_opt=
+    if [ -n "$tag_pattern" ]; then
+        match_opt="--match $tag_pattern"
+    fi
+    tag_name=$(git describe --tags --exact "$target_commitish" $match_opt || true)
     if [ -z "$tag_name" ]; then
       info "Tag name not specified nor $target_commitish tagged; please add a tag parameter to the step or tag this commit";
       return
